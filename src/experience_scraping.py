@@ -14,8 +14,16 @@ else:
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
 
+# 変数soupの確認 確認後下2行をコメントアウト
+print(soup)
+exit()
+
 # 高配当株式の行のデータを取得
 stock_rows = soup.select('スクレイピングするクラス')
+
+# 変数stock_rowsの確認 確認後下2行をコメントアウト
+print(stock_rows)
+exit()
 
 # スクレイピングしたデータを格納するリスト
 scraping_data_list = list()
@@ -24,6 +32,10 @@ scraping_data_list = list()
 for stock_row in stock_rows:
     # 株式名称をスクレイピング
     stock_name = stock_row.select('スクレイピングするクラス')[0].select_one('スクレイピングするタグ').get_text()
+
+    # 変数stock_nameの確認 確認後下2行をコメントアウト
+    print(stock_name)
+    exit()
 
     # 株式価格をスクレイピング
     stock_price = stock_row.select('スクレイピングするクラス')[1].select_one('スクレイピングするクラス').get_text()

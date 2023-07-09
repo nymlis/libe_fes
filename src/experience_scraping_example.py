@@ -6,7 +6,7 @@ import csv
 # スクレイピング先を選択するフラグ  True : オフラインのサイト  False : オンラインのサイト
 is_offline = True
 
-# サイトから情報をスクレイピング
+# サイトから変数soupに全HTML情報を格納
 if is_offline:
     soup = BeautifulSoup(open('./sample_site/yahoo_finance_dividend_yield_ranking.html', encoding='utf-8'), "html.parser")
 else:
@@ -14,8 +14,16 @@ else:
     response = requests.get(url)
     soup = BeautifulSoup(response.content, "html.parser")
 
+# 変数soupの確認 確認後下2行をコメントアウト
+# print(soup)
+# exit()
+
 # 高配当株式の行のデータを取得
 stock_rows = soup.select('._1GwpkGwB')
+
+# 変数stock_rowsの確認 確認後下2行をコメントアウト
+# print(stock_rows)
+# exit()
 
 # スクレイピングしたデータを格納するリスト
 scraping_data_list = list()
@@ -24,6 +32,10 @@ scraping_data_list = list()
 for stock_row in stock_rows:
     # 株式名称をスクレイピング
     stock_name = stock_row.select('.P452zeXX')[0].select_one('a').get_text()
+
+    # 変数stock_nameの確認 確認後下2行をコメントアウト
+    # print(stock_name)
+    # exit()
 
     # 株式価格をスクレイピング
     stock_price = stock_row.select('.P452zeXX')[1].select_one('._3rXWJKZF').get_text()
